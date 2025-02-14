@@ -1,11 +1,14 @@
 import express from "express"
 import dotenv from "dotenv"
 import sequelize from "./config/db.js";
+import mainRoute from "./routes/index.js";
 
 dotenv.config()
 
 let app = express()
 app.use(express.json())
+
+app.use("/", mainRoute)
 
 async function bootstrap() {
     try {
