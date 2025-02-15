@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 import Cources from "./cources.model.js";
+import User from "./user.model.js";
 
 let Comment = sequelize.define("comment", {
     id: {
@@ -11,11 +12,11 @@ let Comment = sequelize.define("comment", {
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        // references: {
-        //     model: User,
-        //     key: "id"
-        // },
-        // onDelete: "CASCADE"
+        references: {
+            model: User,
+            key: "id"
+        },
+        onDelete: "CASCADE"
     },
     msg: {
         type: DataTypes.STRING,
@@ -35,12 +36,10 @@ let Comment = sequelize.define("comment", {
     }
 }, { timestamps: true })
 
-// Foydalanuvchi va Komment o'rtasidagi aloqani o'rnatish
-User.hasMany(Comment, { foreignKey: "user_id" }); // User ko'plab kommentlarga ega
-Comment.belongsTo(User, { foreignKey: "user_id" }); // Har bir komment foydalanuvchiga tegishli
+User.hasMany(Comment, { foreignKey: "user_id" });
+Comment.belongsTo(User, { foreignKey: "user_id" });
 
-// Kurs va Komment o'rtasidagi aloqani o'rnatish
-Cources.hasMany(Comment, { foreignKey: "courceId" }); // Cources ko'plab kommentlarga ega
-Comment.belongsTo(Cources, { foreignKey: "courceId" }); // Har bir komment kursga tegishli
+Cources.hasMany(Comment, { foreignKey: "courceId" });
+Comment.belongsTo(Cources, { foreignKey: "courceId" });
 
 export default Comment

@@ -8,14 +8,17 @@ dotenv.config()
 let app = express()
 app.use(express.json())
 
+let PORT = process.env.PORT
+
 app.use("/", mainRoute)
 
 async function bootstrap() {
     try {
-        await sequelize.sync({ force: true })
+        await sequelize.authenticate()
+        // await sequelize.sync({ force: true })
         console.log("db connected");
-        app.listen(process.env.PORT, () => {
-            console.log("server started on port: 3000");
+        app.listen(PORT, () => {
+            console.log(`server started on port: ${PORT}`);
         })
     } catch (error) {
         console.log(error);

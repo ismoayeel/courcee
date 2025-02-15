@@ -30,12 +30,11 @@ let Lesson = sequelize.define("lesson", {
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, { timestamps: true })
 
-// Cources va Lesson o'rtasidagi aloqani o'rnatish
-Cources.hasMany(Lesson, { foreignKey: "courceId" }); // Cources ko'plab Lessonsga ega
-Lesson.belongsTo(Cources, { foreignKey: "courceId" }); // Har bir Lesson Courcega tegishli
+Cources.hasMany(Lesson, { foreignKey: "courceId" });
+Lesson.belongsTo(Cources, { foreignKey: "courceId" });
 
 export default Lesson

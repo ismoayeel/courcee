@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 import Category from "./category.model.js";
+import User from "./user.model.js";
 
 let Cources = sequelize.define("cources", {
     id: {
@@ -27,24 +28,22 @@ let Cources = sequelize.define("cources", {
     teacherId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        // references: {
-        //     model: User,
-        //     key: "id"
-        // },
-        // onDelete: "CASCADE"
+        references: {
+            model: User,
+            key: "id"
+        },
+        onDelete: "CASCADE"
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, { timestamps: true })
 
-// Kategoriyalar va Cources o'rtasidagi aloqani o'rnatish
-Category.hasMany(Cources, { foreignKey: "categoryId" }); // Category ko'plab Courcesga ega
-Cources.belongsTo(Category, { foreignKey: "categoryId" }); // Har bir Cource Categoryga tegishli
+Category.hasMany(Cources, { foreignKey: "categoryId" });
+Cources.belongsTo(Category, { foreignKey: "categoryId" });
 
-// Foydalanuvchi va Cources o'rtasidagi aloqani o'rnatish
-User.hasMany(Cources, { foreignKey: "teacherId" }); // User ko'plab Courcesga ega
-Cources.belongsTo(User, { foreignKey: "teacherId" }); // Har bir Cource foydalanuvchiga tegishli (teacher)
+User.hasMany(Cources, { foreignKey: "teacherId" });
+Cources.belongsTo(User, { foreignKey: "teacherId" });
 
 export default Cources
