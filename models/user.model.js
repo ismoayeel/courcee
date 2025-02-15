@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
-import Comment from "./comment.model.js"
 
 const User = sequelize.define("users", {
     id: {
@@ -38,11 +37,5 @@ const User = sequelize.define("users", {
         allowNull: false
     }
 });
-
-// User.hasMany(Comment);
-// Comment.belongsTo(User);
-
-// User.hasMany(Cources);
-// Cources.belongsTo(User);
 
 export default User
